@@ -1,0 +1,12 @@
+запрос дл€ выбора всех пар Ђ»м€ продукта Ц »м€ категорииї.
+
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName("MyApp").getOrCreate()
+
+result_df = products_df \
+	.join(product_category_df, "ProductID", "left") \
+	.join(categories_df, "CategoryID", "left") \
+	.select("ProductName", "CategoryName")
+
+result_df.show()
+spark.stop()
